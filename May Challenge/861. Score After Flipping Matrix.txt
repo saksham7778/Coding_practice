@@ -1,0 +1,64 @@
+class Solution {
+public:
+    void print(vector<vector<int>>& a){
+        int n = a.size();
+        int m = a[0].size();
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                // ans += (1<<(m-1-j));
+                cout<<a[i][j]<<" ";
+            }
+            cout<<"\n";
+        }
+        cout<<"\n";
+    }
+    int matrixScore(vector<vector<int>>& a) {
+        
+        int n = a.size();
+        int m = a[0].size();
+        
+        // setting first digit 
+        for(int i=0;i<n;i++){
+            if(a[i][0]== 0){
+                for(int j=0;j<m;j++){
+                    if(a[i][j]==0)   a[i][j]=1;
+                    else a[i][j]=0;
+                }
+            }  
+        }
+        
+        // print(a);
+        int count0,count1;
+        //handling columns
+        for(int i=1;i<m;i++){
+            
+            count0=0;count1=0;
+            for(int j=0;j<n;j++){
+                if(a[j][i]==0)
+                    count0++;
+                else
+                    count1++;
+            }
+            
+            if(count0 > count1){
+                for(int j=0;j<n;j++){
+                    if(a[j][i]==0)   a[j][i]=1;
+                    else a[j][i]=0;
+                }
+            }
+        }
+        
+        int ans =0;
+        // print(a);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                ans += pow(2,(m-1-j))*a[i][j];
+                // cout<<a[i][j]<<" ";
+            }
+            // cout<<ans<<"\n";
+        }
+        
+        return ans;
+    }
+};
