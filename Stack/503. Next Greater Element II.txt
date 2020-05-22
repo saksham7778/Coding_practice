@@ -1,0 +1,45 @@
+class Solution {
+public:
+    
+    void help(int *ar,int n,vector<int> &ans,vector<int> &v){
+     
+        stack<int> s;
+        s.push(0);
+        for(int i=1;i<n;i++){
+            if(ar[i] <= ar[s.top()] )
+                s.push(i);
+            else{
+                while(!s.empty() && ar[i] > ar[s.top()]){
+                    ans[s.top()]=ar[i];
+                    s.pop();
+                }
+                s.push(i);
+            }
+        }
+
+        for( int i=0;i<n/2;i++){
+            v.push_back(ans[i]);
+        }
+        
+        return;
+    }
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        
+        vector<int> v;
+        if(nums.size()==0) return v;
+        
+        int n= nums.size();
+        int m = 2*n;
+        int ar[m];
+        vector<int> ans(m,-1);
+        
+      
+        for(int i=0;i<n;i++){
+            ar[i]=ar[i+n]=nums[i];
+        }
+        
+        help(ar,m,ans,v);
+        
+        return v;
+    }
+};

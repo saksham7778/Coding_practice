@@ -1,0 +1,7 @@
+struct oper{
+        bool operator() (const pair<char,int> &p1 ,const pair<char,int> &p2)const{
+        	// sort in increasing order of second element
+            return (p1.second<p2.second);
+            	
+        }
+    };  

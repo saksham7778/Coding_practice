@@ -1,0 +1,7 @@
+Small 6 mins video for help => https://www.youtube.com/watch?v=sDKpIO2HGq0
+
+problems covered
+503. Next Greater Element II
+1019. Next Greater Node In Linked List
+739. Daily Temperatures
+556. Next Greater Element III
