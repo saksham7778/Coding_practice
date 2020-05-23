@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+using namespace std;
+
+
+int32_t main(){
+	fast;
+	int t;cin>>t;while(t--){
+		int a,b,c,d;
+		cin>>a>>b>>c>>d;
+		  
+		int ans =0;
+		if(b>=a)
+			ans=b;
+		else if(d>=c)
+			ans=-1;
+		else{
+			double temp = 1.0*(a-b)/(c-d) +0.4999999;
+//			cout<<temp <<"	**	"<<lround(temp)<<"\n";
+			ans = (lround(temp)*c) + b;
+		}
+		cout<<ans<<"\n";
+	}
+}

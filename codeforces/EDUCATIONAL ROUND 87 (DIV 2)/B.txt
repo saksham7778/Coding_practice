@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+using namespace std;
+
+
+int32_t main(){
+	fast;
+	int t;cin>>t;while(t--){
+		string s;
+		cin>>s;
+		
+		unordered_map<char,int> m;
+		m['1']=1;m['2']=1;m['3']=1;
+		int ans =INT_MAX;int count =3;int start = 0;
+		bool flag = false;
+		if(s.length()<3)
+			ans = 0;
+		else{
+			
+			for(int i=0;i<3;i++){
+				if(m.find(s[i])!=m.end() )
+					m[s[i]]--;
+				if(m[s[i]] == 0)
+					count--;
+			}
+			if(count ==0) {
+				ans =3;
+				flag = true;
+			}
+			else{
+				for(int i=3;i<s.length();i++){
+					
+					if(m.count(s[i]) > 0 )
+						m[s[i]]--;
+					if(m[s[i]] == 0)
+						count--;
+						
+					if(count ==0){
+						while(count ==0){
+							ans = min(ans,i-start+1);
+							flag = true;
+//							cout<<start<<"	"<<"**"<<m[s[start]]<<"	"<<i<<"\n";
+							m[s[start]]++;
+							if(m[s[start]] > 0)
+								count++;
+							start++;
+						}
+					}
+					
+				}
+			}
+			
+		}
+		if(flag)
+			cout<<ans<<"\n";
+		else
+			cout<<"0"<<"\n";
+	}
+}
