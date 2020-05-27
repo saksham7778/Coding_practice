@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+using namespace std;
+
+int32_t main(){
+	fast;
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		int a[n];
+		
+		for(int i=0;i<n;i++)
+			cin>>a[i];
+		
+		sort(a,a+n);
+		int num =1;
+		int maxi,count; maxi = 0; count =0;
+		for(int i=0;i<n;i++){
+			
+			if(a[i]<= (num+count)){
+				num = num+1+count;
+				maxi=0;count=0;
+			}
+			else{
+				maxi=max(maxi,a[i]);
+				count++;
+			}
+//			cout<<i<<"	"<<a[i]<<"	"<<num<<"\n";
+		}
+		
+		cout<<num<<"\n";
+	}
+}
