@@ -1,0 +1,53 @@
+class Solution {
+public:
+    
+    void bfs(vector<vector<int>>& graph ,int n ,int *visited,bool &flag,int sv){
+        
+        queue<int> q;
+        q.push(sv); visited[sv]=1;
+        
+        while(!q.empty()){
+            
+            int fr = q.front();
+            q.pop();
+            
+            for(int i=0;i<graph[fr].size();i++){
+                int cur = graph[fr][i];
+                
+                if(fr == cur ) continue;
+                if(visited[fr] == visited[cur]){
+                    flag = true;
+                    return;
+                }
+                if(visited[cur]==0){
+                    q.push(cur);
+                    if(visited[fr]==1) visited[cur]=2;
+                    else visited[cur] =1;
+                }
+            }
+        }
+        
+        return;
+    }
+    
+    bool isBipartite(vector<vector<int>>& graph) {
+        
+        int n = graph.size();
+        
+        int visited[n]; 
+        for(int i=0;i<n;i++) visited[i]=0;
+        
+        bool flag = false;
+        
+        for(int i=0;i<n;i++){
+            if(visited[i]==0){
+                cout<<i<<" *"<<"\n";
+               bfs(graph,n,visited,flag,i); 
+               if(flag)
+                   return false;
+            }
+        }
+        
+        return true; 
+    }
+};

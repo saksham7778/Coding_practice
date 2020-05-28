@@ -1,0 +1,15 @@
+1) Same as 0/1 knapsack ( dp[i][j] = max(val[i-1] + dp[i-1][j-wt[i-1]],  dp[i-1][j]) )
+
+	a)leetcode
+		322. coin change (total no. of elements that give the sum k)
+		518. coin change 2 (how many unquie coin changes are possible , coins can repeat) 
+				( dp[i][j] = dp[i-1][j] + dp[i][j-ar[i-1]] )
+		
+	point to note -> in coin change 2 and count of subsets that sum to k the only change in formula is in the secind term
+						dp[i][j-ar[i-1]] and dp[i-1][j-ar[i-1]] respectively .
+	So to learn ,the trick is when we want same element again and again remain at same row (i.e i) and if you dont
+	want same element again and again go to 1 row back(i.e. i-1).
+
+	b)
+		subset sum to k (true/false)  ( dp[i][j] = dp[i-1][j] | dp[i-1][j-ar[i-1]] )
+		Count of subsets with sum equal to k ( dp[i][j] = dp[i-1][j] + dp[i-1][j-ar[i-1]] )

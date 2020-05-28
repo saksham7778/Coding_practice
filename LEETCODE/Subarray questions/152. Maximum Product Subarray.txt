@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& ar) {
+        
+        int cur_max, cur_min, prev_max , prev_min , ans;
+        cur_max = ar[0]; cur_min= ar[0]; prev_max= ar[0]; prev_min= ar[0]; ans= ar[0];
+        
+        for(int i=1;i<ar.size();i++){
+            cur_max = max(ar[i],max(prev_max*ar[i] , prev_min*ar[i]));
+            cur_min = min(ar[i],min(prev_max*ar[i] , prev_min*ar[i]));
+            ans = max(ans, cur_max);
+            prev_max = cur_max;
+            prev_min = cur_min;
+        }
+        
+        return ans;
+    }
+};

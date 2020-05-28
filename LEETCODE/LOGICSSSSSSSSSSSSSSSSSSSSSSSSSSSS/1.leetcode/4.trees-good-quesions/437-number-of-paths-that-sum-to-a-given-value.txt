@@ -1,0 +1,48 @@
+//number of paths that sum to a given value
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int count =0;
+    void help(TreeNode* root,int sum,vector<int> &v){
+
+        if(root==NULL)
+            return;
+        
+        v.push_back(root->val);
+        
+        int cur_sum=0;
+        
+        for(int i=v.size()-1;i>=0;i--){
+            cur_sum+=v[i];
+            // cout<<cur_sum<<"    *"<<"\n";
+            if(cur_sum==sum){
+                count++;
+            }
+        }
+        
+       if(root->left)  help(root->left,sum,v);
+       if(root->right) help(root->right,sum,v);
+        
+       v.pop_back(); 
+       return;
+        
+    }
+    
+    int pathSum(TreeNode* root, int sum) {
+        
+        if(root ==NULL) 
+            return 0;
+        vector<int> v;
+        help(root,sum,v);
+        return count;
+    }
+};

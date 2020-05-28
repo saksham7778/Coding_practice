@@ -1,0 +1,87 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> graph[1005];
+    void hash(TreeNode* root){
+        
+        if(root==NULL)
+            return;
+        if(root->left){
+            graph[root->left->val].push_back(root->val);
+            graph[root->val].push_back(root->left->val);
+            hash(root->left);
+        }
+        
+        if(root->right){
+            graph[root->right->val].push_back(root->val);
+            graph[root->val].push_back(root->right->val);
+            hash(root->right);
+        }
+        
+        return;
+        
+    }
+    class temp{
+      public:
+        int value;
+        int level;
+    };
+    void help(int cur,int k,vector<int> &ans){
+        set<int> seen;
+        
+        queue<temp> q;
+        temp t1;
+        t1.value=cur;
+        t1.level=0;
+        q.push(t1);
+        seen.insert(cur);
+        
+        while(!q.empty()){
+            
+            temp t2= q.front();
+            q.pop();
+            int num=t2.value;
+            // cout<<t2.value<<" "<<graph[num].size()<<"**";
+            int lev=t2.level;
+            // cout<<t2.level<<"\n";
+            
+            if(lev==k){
+                ans.push_back(num);
+            }
+            for(int i=0;i<graph[num].size();i++){
+                if(seen.find(graph[num][i])==seen.end()){
+                    seen.insert(graph[num][i]);
+                    temp t3;
+                    t3.value=graph[num][i];
+                    t3.level=lev+1;
+                    q.push(t3);
+                }
+            }
+        }
+        
+        return;
+    }
+    
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        
+        hash(root);
+        // for(int j=0;j<graph[2].size();j++){
+        //     cout<<graph[2][j]<<"\n";
+        // }
+        
+        vector<int> ans;
+        help(target->val,k,ans);
+        
+        return ans;
+    }
+    
+    
+};
