@@ -1,0 +1,34 @@
+class Solution {
+public:
+    
+    // this could also be used 
+//     struct compare{
+      
+//         bool operator()(const pair<float,vector<int>> &a,const pair<float,vector<int>>&b){
+//             return a.first>b.first;
+//         }
+//     };
+    
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        
+        vector<vector<int>> ans;
+        priority_queue<pair<float,vector<int>> , vector<pair<float,vector<int>>> ,                                                                                  greater<pair<float,vector<int>>> > pq;
+        
+        for(int i=0;i<points.size();i++){
+            pair<float,vector<int>> p;
+            p.first = sqrt( (points[i][0]*points[i][0]) + (points[i][1]*points[i][1]) );
+            p.second = points[i];
+            pq.push(p);
+        }
+        
+        int count =1;
+        while(!pq.empty()){
+            ans.push_back(pq.top().second);
+            if(count == k ) break;
+            count++;
+            pq.pop();
+        }
+        
+        return ans;
+    }
+};
