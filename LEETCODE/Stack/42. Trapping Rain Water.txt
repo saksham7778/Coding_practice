@@ -1,0 +1,49 @@
+class Solution {
+public:
+
+    void greatest_left(vector<int> &ar,vector<int> &v){
+        
+        int n = ar.size();
+        v[0]=ar[0];
+        int maxi=ar[0];
+        for(int i=1;i<n;i++){
+            maxi=max(ar[i],maxi);
+            v[i] = maxi;
+        }
+        
+        return;
+    }
+    
+    void greatest_right(vector<int> &ar,vector<int> &v){
+        
+        int n = ar.size();
+        v[n-1]=ar[n-1];
+        int maxi=ar[n-1];
+        for(int i=n-2;i>=0;i--){
+            maxi=max(ar[i],maxi);
+            v[i] = maxi;
+        }
+        return;
+    }
+    
+    int trap(vector<int>& ar) {
+        int n= ar.size();
+        if(n==0)
+            return 0;
+        
+        
+        vector<int> left(n,0);
+        vector<int> right(n,0);
+        
+        greatest_right(ar,right);
+        // for(int i=0;i<ar.size();i++) cout<<right[i]<<" ";cout<<"\n";
+        greatest_left(ar,left);
+        // for(int i=0;i<ar.size();i++) cout<<left[i]<<" ";cout<<"\n";
+        
+        int ans =0;
+        for(int i=0;i<n;i++){
+            ans += min(right[i],left[i]) - ar[i];
+        }
+        return ans;
+    }
+};
