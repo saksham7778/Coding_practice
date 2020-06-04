@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define setbits(x)      __builtin_popcountll(x)
+#define inf             1e18
+#define int long long
+using namespace std;
+
+
+int32_t main(){
+	fast;
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		
+		unordered_map<int,int> m;
+		m[1] = 1;
+		for(int i=2;i<=inf;i = i*2){
+			m[i] = (m[i/2]*2) +1;
+		}
+		
+		int i=0;
+		int ans = 0;
+		while(n>0){
+			
+			if(n%2==1){
+				ans += m[pow(2,i)];
+			}
+			i++;
+			n=n/2;
+		}
+		
+		cout<<ans<<"\n";
+
+	}
+	
+	
+}
