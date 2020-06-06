@@ -1,0 +1,73 @@
+//2
+//7
+//T|T&F^T
+//5
+//T^F|F
+
+#include<bits/stdc++.h>
+#define MOD 1003
+using namespace std;
+
+// int maxi=INT_MIN;
+int dp[1001][1001][2];
+
+int help(string s,int i,int j,bool istrue){
+    if(i>j)
+        return 0;
+    if(i==j){
+        if((s[i]=='T' && istrue==true) || (s[i]=='F' && istrue==false) )
+            return 1;
+    }
+    if(dp[i][j][istrue]!=-1) return dp[i][j][istrue];
+    
+    int ans = 0;
+    for(int k=i+1;k<=j-1;k+=2){
+        
+        int left_t = help(s,i  ,k-1,true);
+        int right_t= help(s,k+1,j  ,true);
+        int left_f = help(s,i  ,k-1,false);
+        int right_f= help(s,k+1,j  ,false);
+        
+        // ans += left_t+right_t;
+        
+        if(s[k] == '|'){
+            if(istrue==true){
+                ans += (left_t*right_t) + (left_t*right_f) + (left_f*right_t);
+            }
+            else
+                ans += (left_f*right_f);
+        }
+        
+        else if(s[k] == '&'){
+            if(istrue==true){
+                ans += (left_t*right_t); 
+            }
+            else
+                ans += (left_f*right_f) + (left_t*right_f) + (left_f*right_t);
+        }
+
+        else if(s[k] == '^'){
+            if(istrue==true){
+                ans +=  (left_t*right_f) + (left_f*right_t);
+            }
+            else
+                ans += (left_f*right_f) + (left_t*right_t) ;
+        }
+        
+        // maxi=max(maxi,ans);
+    }
+    dp[i][j][istrue] = ans;
+    return ans;
+}
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n;cin>>n;
+        string s;cin>>s;
+        
+		memset(dp,-1,sizeof(dp));
+        
+        cout<<help(s,0,n-1,true)<<"\n";
+    }
+}
