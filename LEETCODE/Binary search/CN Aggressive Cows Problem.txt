@@ -1,0 +1,54 @@
+// maximize the minimum posiible distance
+// if suppose between each stall distance 4,20,25  are posiible so maximum of all the possible answers is our answer
+
+#include<bits/stdc++.h>
+using namespace std;
+
+bool help(int cur,int k,int *ar,int n){
+    
+    int temp=ar[0];
+    int count=1;
+    for(int i=1;i<n;i++){
+        if(ar[i]-temp>=cur){
+            count++;
+            temp=ar[i];
+        }
+    }
+    
+    if(count>=k)
+        return true;
+    return false;
+}
+
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n,k;cin>>n>>k;
+        int a[n];for(int i=0;i<n;i++) cin>>a[i];
+		int ans;ans=0;
+        
+        sort(a,a+n);
+        // for(int i = (a[n-1]-a[0]) ;i>=0;i-- ){
+        //     if(help(i,k,a,n)){
+        //         ans =i;
+        //         break;
+        //     }
+        // }
+        
+        int l=0;
+        int h=a[n-1]-a[0];
+        
+        while(l<=h){
+            int mid = l+(h-l)/2;
+            if(help(mid,k,a,n)){
+                ans = mid;
+            	l= mid+1;
+            }
+            else{
+                h=mid-1;
+            }
+        }
+        
+        cout<<ans<<"\n";
+    }
+}
