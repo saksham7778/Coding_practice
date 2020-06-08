@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+#define deb(v) cout<<#v<<" = "<<v<<"\n";
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+using namespace std;
+
+int  ar[55][55];
+
+
+bool isvalid(int x,int y,int n,int m){
+	
+	for(int i=0;i<m;i++){
+		if(ar[x][i]==1)
+			return false;
+	}
+	
+	for(int i=0;i<n;i++){
+		if(ar[i][y]==1)
+			return false;
+	}
+	
+	return true;
+}
+
+void print(int n,int m){
+	
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cout<<ar[i][j]<<" ";
+		}
+		cout<<"\n";
+	}
+	
+	return;
+}
+
+int32_t main(){
+	fast;
+	int t;cin>>t;
+	while(t--){
+		int n,m;cin>>n>>m;
+		memset(ar,0,sizeof(ar));
+		
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				cin>>ar[i][j];
+			}
+		}
+		
+		int flag =false;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<m;j++){
+				if(isvalid(i,j,n,m)){
+					ar[i][j]=1;
+					flag = !flag;
+//					print(n,m);
+				}
+			}
+		}
+		if(!flag)
+			cout<<"Vivek"<<"\n";
+		else
+			cout<<"Ashish"<<"\n";
+
+	}
+}

@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#define deb(v) cout<<#v<<" = "<<v<<"\n";
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+#define int long long
+using namespace std;
+
+bool isSorted(int *a,int *c,int n){
+	for(int i=0;i<n;i++){
+		if(a[i]!=c[i])
+			return false;
+	}
+	
+	return true;
+}
+
+int32_t main(){
+	fast;
+	int t;cin>>t;
+	while(t--){
+		
+		int n;cin>>n;
+		int a[n],b[n],c[n];
+		for(int i=0;i<n;i++) cin>>a[i];
+		for(int i=0;i<n;i++) cin>>b[i];
+		for(int i=0;i<n;i++){
+			c[i]=a[i];
+		}
+		sort(c,c+n);
+		
+		int count_0=0;int count_1=0;
+		
+		for(int i=0;i<n;i++){
+			if(b[i]==0)
+				count_0++;
+			else
+				count_1++;
+		}
+		
+		bool flag = false;
+		if(count_0==0){
+			if(isSorted(a,c,n))
+				flag = true;
+		}
+		else if(count_1==0){
+			if(isSorted(a,c,n))
+				flag = true;
+		}
+		else{
+			flag =true;
+		}
+		
+		if(flag)
+			cout<<"Yes"<<"\n";
+		else 
+			cout<<"No"<<"\n";
+	}
+}
