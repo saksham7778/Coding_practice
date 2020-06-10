@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<vector<string>> ans;
+    vector<string> temp;
+    
+    bool isPallindrome(string s,int start,int end){
+        
+        while(start<=end){
+            if(s[start]!=s[end]){
+                return false;
+            }
+            else{
+                start++;end--;
+            }
+        }
+        
+        return true;
+        
+    }
+    
+    void help(string s,int start){
+        
+        if(start == s.size()){
+            ans.push_back(temp);
+        }
+        
+        for(int i=start;i<s.size();i++){
+            if(isPallindrome(s,start,i)){
+                temp.push_back(s.substr(start,i-start+1));
+                help(s,i+1);
+                temp.pop_back();
+            }
+        }
+        
+        return;
+    }
+    
+    vector<vector<string>> partition(string s) {
+        
+        help(s,0);
+        return ans;
+    }
+};
