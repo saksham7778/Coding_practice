@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class job{
+  public:
+    int id,deadline,profit;
+};
+
+struct compare{
+  bool operator()(const job &j1,const job &j2){
+      return j1.profit>j2.profit;
+  }  
+};
+
+int main() {
+	int t;cin>>t;while(t--){
+	    int n;cin>>n;
+	    job ar[n];
+	    for(int i=0;i<n;i++){
+	        job obj;
+	        cin>>obj.id>>obj.deadline>>obj.profit;
+	        ar[i]=obj;
+	    }
+	    
+	    sort(ar,ar+n,compare());
+	    
+	   // for(int i=0;i<n;i++){
+	   //     cout<<ar[i].id<<" "<<ar[i].deadline<<" "<<ar[i].profit<<"\n";
+	   // }
+	   vector<int> ans(n,0);
+	   int sum=0;int count=0;
+	   for(int i=0;i<n;i++){
+	       for(int j=min(n-1,ar[i].deadline-1);j>=0;j--){
+	           if(ans[j]==0){
+	               ans[j]=ar[i].profit;
+	               count++;
+	               break;
+	           }
+	       }
+	   }
+	   for(int i=0;i<n;i++) {
+	       sum+=ans[i];
+	   }
+	   //for(int i=0;i<n;i++) cout<<ans[i]<<" ";cout<<"\n";
+	   cout<<count<<" "<<sum<<"\n";
+	}
+}
