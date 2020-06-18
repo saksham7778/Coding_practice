@@ -1,0 +1,78 @@
+class Solution {
+public:
+    
+    bool checkipv4(string s,int n){
+        
+        string temp="";
+        for(int i=0;i<=n;i++){
+            if(s[i]=='.'||i==n){
+                
+                if(temp[0]=='0' && temp.length()!=1) return false;
+                if(temp.length()==0||temp.length()>3) return false;
+                for(int j=0;j<temp.size();j++){
+                    if(temp[j]>='0' && temp[j]<='9') continue;
+                    else return false;
+                }
+                if(stoi(temp)>255) return false;
+                temp="";
+                
+            }
+            else{
+                temp+=s[i];
+            }
+        }
+        
+        return true;
+    }
+    
+    bool checkipv6(string s,int n){
+        
+        string temp="";
+        for(int i=0;i<=n;i++){
+            if(s[i]==':'||i==n){
+                
+                if(temp.length()==0||temp.length()>4) return false;
+                for(int j=0;j<temp.size();j++){
+                    if((temp[j]>='a' && temp[j]<='f')||(temp[j]>='A' && temp[j]<='F')
+                                ||(temp[j]>='0'&&temp[j]<='9')) continue;
+                    else
+                        return false;
+                }
+                
+                temp="";
+                
+            }
+            else{
+                temp+=s[i];
+            }
+        }
+        
+        return true;
+    }
+    
+    string validIPAddress(string s) {
+        
+        int n = s.length();
+        int count1=0;int count2=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='.')
+                count1++;
+            else if(s[i]==':'){
+                count2++;
+            }
+        }
+        
+        if(count1==3){
+            if(checkipv4(s,n)) return "IPv4";
+            else return "Neither";
+        }
+        else  if(count2==7){
+            // cout<<"klk"<<"\n";
+            if(checkipv6(s,n)) return "IPv6";
+            else return "Neither";
+        }
+        
+        return "Neither";
+    
+    }
+};
