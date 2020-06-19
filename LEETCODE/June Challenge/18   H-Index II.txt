@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int hIndex(vector<int>& v) {
+        
+        int n = v.size();if(n==0) return 0;
+        for(int i=0;i<n;i++){
+            
+            if(v[i]==n-i)
+                return n-i;
+                
+        }
+        
+        return 1;
+    }
+};
