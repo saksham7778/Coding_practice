@@ -1,0 +1,30 @@
+class Solution {
+public:
+    
+    bool check(vector<int> &v){
+        for(int i=0;i<3;i++){
+            if(v[i]==0)
+                return false;
+        }
+        return true;
+    }
+    
+    int numberOfSubstrings(string s) {
+        
+        int n = s.length();
+        vector<int> map(3,0);
+        int start =0;int ans=0;
+        
+        for(int i=0;i<n;i++){
+            map[s[i]-'a']++;
+            
+            while(check(map) && start<i ){
+                ans+= (n-i);
+                map[s[start]-'a']--;
+                start++;
+            }
+        }
+        
+        return ans;
+    }
+};
