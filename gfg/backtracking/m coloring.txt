@@ -1,0 +1,40 @@
+#include bitsstdc++.h
+using namespace std;
+
+bool isSafe(vectorvectorint &graph,int n,int color,int vertex,int cur_color){
+    for(int i=0;in;i++){
+        if(graph[vertex][i]==1 && cur_color==color[i]) return false;
+    }
+    return true;
+}
+
+bool help(vectorvectorint &graph,int n,int color,int m,int sv){
+    if(sv==n) return true;
+    for(int i=1;i=m;i++){
+        if(isSafe(graph,n,color,sv,i)){
+            color[sv]=i;
+            if(help(graph,n,color,m,sv+1)) return true;
+            color[sv]=0;
+        }
+    }
+    return false;
+}
+
+int main() {
+    
+    int t;cint;while(t--){
+        int n,m,e;cinnme;
+        vectorvectorint graph(n,vectorint(n,0));
+         int graph[n][n];
+        for(int i=0;ie;i++){
+            int u,v;cinuv;
+            graph[u-1][v-1]=1;
+            graph[v-1][u-1]=1;
+        }
+        
+        int color[n];for(int i=0;in;i++)color[i]=0;
+        
+        couthelp(graph,n,color,m,0)n;
+    }
+    
+}

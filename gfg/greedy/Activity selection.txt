@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class activity{
+    public:
+        int start,end;
+};
+
+struct comp{
+  bool operator()(const activity &a1,const activity &a2){
+      return a1.end<a2.end;
+  }  
+};
+
+int main() {
+
+    int t;cin>>t;while(t--){
+        int n;cin>>n;
+        activity ar[n];
+        for(int i=0;i<n;i++) cin>>ar[i].start;
+        for(int i=0;i<n;i++) cin>>ar[i].end;
+        
+        sort(ar,ar+n,comp());
+        int count =1;int temp = ar[0].end;
+        for(int i=1;i<n;i++){
+            if(ar[i].start>=temp){
+                count++;
+                temp=ar[i].end;
+            }
+        }
+        cout<<count<<"\n";
+    }
+}

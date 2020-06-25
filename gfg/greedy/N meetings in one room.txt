@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class activity{
+    public:
+        int id,start,end;
+};
+
+struct comp{
+  bool operator()(const activity &a1,const activity &a2){
+      return a1.end<a2.end;
+  }  
+};
+
+int main() {
+
+    int t;cin>>t;while(t--){
+        int n;cin>>n;
+        activity ar[n];
+        for(int i=0;i<n;i++) {
+            ar[i].id=i+1;
+            cin>>ar[i].start;
+        }
+        for(int i=0;i<n;i++) cin>>ar[i].end;
+        sort(ar,ar+n,comp());
+        
+        vector<int> ans;
+        int count =1;int temp = ar[0].end;ans.push_back(ar[0].id);
+        for(int i=1;i<n;i++){
+            if(ar[i].start>=temp){
+                ans.push_back(ar[i].id);
+                count++;
+                temp=ar[i].end;
+            }
+        }
+        for(int i=0;i<ans.size();i++){
+            cout<<ans[i]<<" ";
+        }cout<<"\n";
+    }
+}
