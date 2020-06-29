@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int dx[4]={1,0,-1,0};
+    int dy[4]={0,1,0,-1};
+    
+    bool isValid(vector<vector<int>> &image,int x,int y,int new_col,int old_col,int n,int m,vector<vector<int>> &visited){
+        if(x<0 || x>=n || y<0 || y>=m || visited[x][y]==1 || image[x][y]!=old_col)  return false;
+        return true;
+    }
+    
+    void help(vector<vector<int>>& image, int x, int y, int new_color,int old_color,int n,int m,vector<vector<int>> &visited){
+        image[x][y]=new_color;
+        for(int i=0;i<4;i++){
+            int new_x=x+dx[i];
+            int new_y=y+dy[i];
+            if(isValid(image,new_x,new_y,new_color,old_color,n,m,visited)){
+                help(image,new_x,new_y,new_color,old_color,n,m,visited);
+            }
+        }
+        return;
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        
+        int old_color=image[sr][sc];
+        int n = image.size();int m = image[0].size();
+        vector<vector<int>> visited(n,vector<int>(m,0));
+        if(image[sr][sc]==newColor) return image;
+        help(image,sr,sc,newColor,old_color,n,m,visited);
+        
+        return image;
+    }
+};

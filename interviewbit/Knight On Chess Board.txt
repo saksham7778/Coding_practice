@@ -1,0 +1,41 @@
+#define pi pair<int,int>
+#define fi first
+#define se second
+#define mk make_pair
+
+bool isValid(int x,int y,int n,int m,  vector<vector<int>> &visited){
+    if(x<0 || x>=n || y<0 || y>=m || visited[x][y]==1) {return false;}
+    return true;
+}
+
+int Solution::knight(int n, int m, int si, int sj, int ei, int ej) {
+    
+    int dx[8]={2,1,-1,-2,-2,-1,1 ,2};
+    int dy[8]={1,2, 2, 1,-1,-2,-2,-1};
+    
+    vector<vector<int>> visited(n,vector<int>(m,0));
+    queue<pi> q;
+    q.push(make_pair(si-1,sj-1));visited[si-1][sj-1]=1;
+    int moves = 0;
+    
+    while(!q.empty()){
+        int size = q.size();
+        for(int i=0;i<size;i++){
+            pi front = q.front();q.pop();
+            if(front.fi==(ei-1) && front.se==(ej-1)) return moves;
+            int x = front.fi;int y = front.se;
+            
+            for(int j=0;j<8;j++){
+                int new_x=x+dx[j];int new_y=y+dy[j];
+                
+                if(isValid(new_x , new_y , n , m , visited)){
+                    
+                    q.push(mk(new_x,new_y));
+                    visited[new_x][new_y]=1;
+                }
+            }
+        }
+        moves++;
+    }
+    return -1;
+}
