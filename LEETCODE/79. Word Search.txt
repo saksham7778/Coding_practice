@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int dx[4]={1,0,-1,0};
+    int dy[4]={0,1,0,-1};
+    
+    bool isValid(int row,int col,int n,int m,vector<vector<char>>& board,int index,string word){
+        if(row<0||row>=n||col<0||col>=m||board[row][col]!=word[index] ) return false;
+        return true;
+    }
+    
+    bool dfs(vector<vector<char>> &board,int row,int col,int index,string word,int n,int m){
+        if(index == word.length()) return true;
+        
+        if(!isValid(row,col,n,m,board,index,word)) return false;
+        
+            char temp = board[row][col];
+            board[row][col] = '*';
+        
+            for(int i=0;i<4;i++){
+                int new_row = row+dx[i];int new_col = col+dy[i];            
+                if (dfs(board,new_row,new_col,index+1,word,n,m)) 
+                    return true;
+            }
+        
+            board[row][col] = temp;
+                
+            return false;
+        }
+
+    
+    bool exist(vector<vector<char>>& board, string word) {
+       
+        int n = board.size(); int m = board[0].size();
+        int index=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                
+                if(board[i][j]==word[0]){
+                    if(dfs(board,i,j,0,word,n,m)) return true;
+                }
+            }
+        }
+        return false;
+    }
+};
