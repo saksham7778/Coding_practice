@@ -1,0 +1,9 @@
+#define ll long long
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        if(n==0 || n==1) return n;
+        ll temp = sqrt(2*(ll)(n) + 0.25)  - 0.5;
+        return temp;
+    }
+};
