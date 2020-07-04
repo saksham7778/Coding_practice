@@ -1,0 +1,53 @@
+class Solution {
+public:
+    
+    string next_day(string s,vector<int>& cells){
+        
+        string temp="";temp+="0";
+        vector<int> help;help.push_back(0);
+        for(int i=1;i<=6;i++){
+            if(cells[i-1]==cells[i+1]){
+                help.push_back(1);
+                // cells[i]=1;
+                temp+="1";
+            }
+            else{
+                help.push_back(0);
+                // cells[i]=0;
+                temp+="0";
+            }
+        }
+        help.push_back(0);
+        temp+="0";
+        cells = help;
+        return temp;
+    }
+    
+    vector<int> prisonAfterNDays(vector<int>& cells, int N) {
+        
+        vector<int> ans=cells;
+        set<string> set;
+        
+        for(int i=0;i<65;i++){
+            string s ="";
+            s = next_day(s,cells);
+            if(set.find(s)==set.end()){
+                set.insert(s);
+                // cout<<s<<"\n";
+            }
+        }
+
+        int size=set.size();
+        // cout<<size<<"\n";
+        if(N>64)   
+            N = N%size;
+        if(N==0) N=set.size();
+        for(int i=0;i<N;i++){
+            string s="";
+            next_day(s,ans);
+        }
+        
+        return ans;
+        
+    }
+};
