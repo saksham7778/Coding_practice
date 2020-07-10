@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int count=0;
+    int dx[4]={1,0,-1, 0};
+    int dy[4]={0,1, 0,-1};
+    
+    bool isSafe(vector<vector<int>>& grid,int n,int m,int row,int col){
+        if(row<0||row>=n || col<0||col>=m||grid[row][col]==0) {
+            count++;return false;
+        }
+        if(grid[row][col]==100) return false;
+        return true;
+    }
+    
+    void dfs(vector<vector<int>>& grid,int n,int m,int row,int col){
+        
+        if(!isSafe(grid,n,m,row,col)) return;
+        grid[row][col]=100;
+        
+        for(int i=0;i<4;i++){
+            int new_row=row+dx[i];int new_col=col+dy[i];
+            dfs(grid,n,m,new_row,new_col);
+        }
+        
+        return;
+    }
+    
+    int islandPerimeter(vector<vector<int>>& grid) {
+        
+        int n = grid.size();if(n==0) return 0;
+        int m = grid[0].size();
+        
+        int row=n;int col=m;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    row=i;col=j;
+                    dfs(grid,n,m,row,col);
+                    break;
+                }
+            }
+        }
+        if(row==n || col ==m) return 0;
+        return count;
+    }
+};
