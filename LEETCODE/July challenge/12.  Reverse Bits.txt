@@ -1,0 +1,28 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        
+        vector<int> v;
+        
+        for(int i=0;i<32;i++){
+            int num = n & 1;      //taking out last bit data
+            v.push_back(num);     //pushing it to vctor
+            n=n>>1;               //reducing number by dividing it by 2 or remove the last bit
+            
+        }
+        
+        // for(int i=0;i<v.size();i++){
+        //     cout<<v[i];
+        // }cout<<"\n";
+        
+        uint32_t ans=0;
+        
+        for(int i=0;i<v.size();i++){
+            
+            ans = ans<<1;                //move current answer to right     
+            ans = ans | v[i];           //adding the bit to last position
+        }
+        
+        return ans;
+    }
+};
