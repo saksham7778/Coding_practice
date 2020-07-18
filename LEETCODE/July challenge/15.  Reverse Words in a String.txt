@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string help(string s){
+        int n= s.length();
+        string temp="";string ans ="";
+
+        for(int i=0;i<=n;i++){
+            if(i==n || s[i]==' '){
+                reverse(temp.begin(),temp.end());temp.push_back(' ');
+                ans += temp;
+                temp="";
+            }
+            else
+                temp += s[i];
+        }
+        reverse(ans.begin(),ans.end());
+        ans = ans.substr(1);
+        return ans;
+    }
+    
+    string reverseWords(string s) {
+        
+        if(s.length()==0) return "";
+        istringstream is(s);
+        string temp,ans="";
+        
+        while(is>>s){
+            ans +=s+' ';
+        }
+        if(ans.size()==0)
+            return "";
+        ans.pop_back();
+    
+        return help(ans);
+    }
+};
