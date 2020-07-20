@@ -1,0 +1,78 @@
+class Solution {
+public:
+    
+    void print(vector<vector<int>> &edges,int n){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                cout<<edges[i][j]<<" ";
+            }cout<<"\n";
+        }
+        return;
+    }
+    
+    vector<int> ans;
+    void help(vector<vector<int>> &edges , vector<int> &indegree,int n){
+        
+        queue<int> q;
+        vector<int> visited(n,0);
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.push(i);visited[i]=1;
+            }
+        }
+        
+        while(!q.empty()){
+            
+            int top = q.front();q.pop();
+            ans.push_back(top);
+            
+            for(int i=0;i<n;i++){
+                int cur = edges[top][i];
+                if(visited[i]==0 && cur==1){
+                    indegree[i]--;
+                    if(indegree[i]==0){
+                        q.push(i);visited[i]=1;
+                    }
+                }
+            }
+        }
+        
+        return;
+    }
+    vector<int> findOrder(int n, vector<vector<int>>& ar) {
+        
+        vector<int> temp;
+        if(n!=0 && ar.size()==0) {
+            for(int i=0;i<n;i++){
+                temp.push_back(i);
+            }
+            return temp;
+        }
+        if(n==0|| ar.size()==0) return temp;
+        int size = ar.size();
+        
+       
+        vector<vector<int>> edges(n,vector<int>(n,0));
+        
+        for(int i=0;i<size;i++){
+            edges[ar[i][1]][ar[i][0]]=1;
+        }
+        // print(edges,n);
+        vector<int> indegree(n,0);
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(edges[i][j])
+                    indegree[j]++;
+            }
+        }
+        
+        // for(int i=0;i<n;i++) cout<<indegree[i]<<" ";cout<<"\n";
+        ans.clear();
+        help(edges,indegree,n);
+        
+        // for(int i=0;i<ans.size();i++) cout<<ans[i]<<" ";cout<<"\n";
+        if(ans.size()==n) return ans;
+        return temp;
+    }
+};

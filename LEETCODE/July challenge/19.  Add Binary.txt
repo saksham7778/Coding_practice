@@ -1,0 +1,65 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        
+        int n=a.length();int m = b.length();
+        if(n==0) return b; if(m==0) return a;
+        
+        reverse(a.begin(),a.end());reverse(b.begin(),b.end());
+        
+        int carry =0;string ans="";
+        
+        for(int i=0;i<min(n,m);i++){
+            int temp = carry+a[i]-'0'+b[i]-'0';
+            carry=0;
+            if(temp==2) {
+                temp=0;carry =1;
+            }
+            else if(temp==3){
+                temp=1;carry=1;
+            }
+            ans+=to_string(temp);
+        }
+        
+        if(n==m){
+            if(carry) {
+                ans += to_string(carry);
+                carry=0;
+            }
+        }
+        else if(n>m){
+            for(int i=m;i<n;i++){
+                int temp=carry+a[i]-'0';
+                carry=0;
+                if(temp==2) {
+                    temp=0;carry =1;
+                }
+                else if(temp==3){
+                    temp=1;carry=1;
+                }
+
+                ans+=to_string(temp);
+            }
+        }
+        else{
+            for(int i=n;i<m;i++){
+                int temp=carry+b[i]-'0';
+                carry=0;
+                if(temp==2) {
+                    temp=0;carry =1;
+                }
+                else if(temp==3){
+                    temp=1;carry=1;
+                }
+
+                ans+=to_string(temp);
+            }
+        }
+        if(carry) {
+            ans += to_string(carry);
+            carry=0;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
