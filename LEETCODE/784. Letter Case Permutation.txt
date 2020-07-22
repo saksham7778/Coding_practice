@@ -1,0 +1,37 @@
+class Solution {
+public:
+    
+    vector<string> ans;
+    
+    
+    void help(string input,string output){
+        
+        if(input.length()==0){
+            ans.push_back(output);
+            return;
+        }
+        
+        if(input[0]-'0'>=0 && input[0]-'0'<=9){
+            output.push_back(input[0]);
+            help(input.substr(1),output);
+        }
+        else{
+            string op1=output;        op1.push_back(tolower(input[0]));
+            string op2=output;        op2.push_back(toupper(input[0]));
+
+            help(input.substr(1),op1);
+            help(input.substr(1),op2);
+        }
+        return;
+        
+    }
+    vector<string> letterCasePermutation(string input) {
+        
+        if(input.length() == 0) return ans;
+        
+        string output="";
+        help(input,output);
+        
+        return ans;
+    }
+};
