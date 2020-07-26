@@ -1,0 +1,24 @@
+class Solution {
+public:
+    
+    int help(int n){
+        int ans = 0;
+        while(n){
+            ans+=n%10;
+            n=n/10;
+        }
+        return ans;
+    }
+    
+    int addDigits(int num) {
+        
+        int ans =0;
+        if(num<10) return num;
+        while(num>=10){
+            ans = help(num);
+            num = ans;
+        }
+        
+        return ans;
+    }
+};
