@@ -1,0 +1,25 @@
+bool go(string fs,string ss,string is,unordered_map<string,bool> &dp){
+    
+    if(fs.empty() and ss.empty() and is.empty())
+        return true;
+    if(is.empty())
+        return false;
+    
+    string str=fs+"|"+ss+"|"+is;
+    if(dp.find(str)!=dp.end()) return dp[str];
+    
+    bool first = false;bool second = false;
+    if(!fs.empty() and fs[0]==is[0]) 
+        first = go(fs.substr(1),ss,is.substr(1),dp);
+    if(!ss.empty() and ss[0]==is[0]) 
+        second = go(fs,ss.substr(1),is.substr(1),dp);
+    return (first or second);
+}
+
+int Solution::isInterleave(string A, string B, string C) {
+
+    unordered_map<string,bool> dp;
+    dp.clear();
+    return go(A,B,C,dp);
+}
+
