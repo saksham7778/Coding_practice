@@ -1,0 +1,44 @@
+#define ll long long 
+#define mod 1000003
+#define Mod 1000003
+ll power(ll a ,ll b){
+    if(b==0) return 1;if(b==1) return a;if(a==0) return 0;
+    
+    ll temp = power(a,b/2);
+    if(b%2 == 0)
+        return (temp %mod*temp%mod)%mod;
+    else
+        return (temp%mod*temp%mod*a%mod)%mod;
+}
+ 
+int Solution::findRank(string s) {
+    int n=s.length();int ans =0;
+    
+    vector<int> dp(n+1);dp[0]=1;
+    for(int i=1;i<=n;i++) dp[i]= (dp[i-1]%mod*i%mod)%mod;
+    
+    for(int i=0;i<n-1;i++){
+        int c=0;
+        
+        for(int j=i+1;j<n;j++){
+            if(s[j]<s[i])
+                c++;
+        }   
+        
+        unordered_map<char,int> mp;
+        for(int j=i;j<n;j++){
+            mp[s[j]]++;
+        }
+        
+        long long di =1;
+        for(auto it:mp){
+            di = (di%mod * dp[it.second]%mod)%mod;
+        }
+        
+        ans = (ans + (c%mod  * dp[n-1-i]%mod  * power(di,mod-2)%mod )%mod  )%mod; 
+        // cout<<power(di,mod-2)%mod <<" ** " <<di<<" "<< c <<" "<<ans<< endl;
+    }
+    return (ans+1 )%mod;
+                    //cout << ans+1 ;
+    
+}

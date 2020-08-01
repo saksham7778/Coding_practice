@@ -1,0 +1,13 @@
+int Solution::cpFact(int a, int b) {
+    
+    int num = __gcd(a,b);
+    if(num ==1) return a;
+    else{
+        while(num!=1){
+            a = a/num;
+            num = __gcd(a,b);
+        }
+    }
+    
+    return a;
+}

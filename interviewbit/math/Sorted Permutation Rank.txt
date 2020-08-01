@@ -1,0 +1,20 @@
+#define mod 1000003
+int Solution::findRank(string s) {
+    int n=s.length();int ans =0;
+    vector<int> dp(n+1,0);
+    dp[0]=1;
+    for(int i=0;i<=n;i++) dp[i]= (dp[i-1]%mod*i%mod)%mod;
+    
+    for(int i=0;i<n-1;i++){
+        int c=0;
+        for(int j=i+1;j<n;j++){
+            if(s[j]<s[i])
+                c++;
+        }   
+        ans+=(c*dp[n-i-1]) %mod;
+        //cout << c <<" "<<ans<< endl;
+    }
+    return (ans+1 )%mod;
+                    //cout << ans+1 ;
+    
+}
