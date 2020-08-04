@@ -1,0 +1,39 @@
+int X[] = {0, 0, 1, 1, 1, -1, -1, -1};
+int Y[] = {1, -1, 0, 1, -1, 0, 1, -1};
+ 
+bool help(vector<vector<int>> &rect,int x,int y , int n ,int m){
+    if(x==n && y==m) return true;
+    rect[x][y] = 1;
+    
+    for(int i=0;i<8;i++){
+        int newx = x + X[i];
+        int newy = y + Y[i];
+        if(newx>=0 && newx<=n && newy>=0 && newy<=m && rect[newx][newy]==0){
+            if(help(rect,newx,newy,n,m)) return true;
+        }
+    }
+    return false;
+}
+ 
+string Solution::solve(int A, int B, int C, int D, vector<int> &E, vector<int> &F){
+    vector<vector<int>> rect(A+1,vector<int>(B+1,0));
+
+    for(int i=0;i<=A;i++){
+        for(int j=0;j<=B;j++){
+            for(int k=0;k<C;k++){
+                if( ( pow(E[k]-i, 2) + pow(F[k]-j, 2) ) <= D*D){
+                    rect[i][j] = 1;
+                }
+                
+    }}}
+ 
+    if(rect[0][0]==1 || rect[A][B]==1)
+        return "NO";
+ 
+    rect[0][0] = 1;
+    bool ans = help(rect,0,0,A,B);
+    
+    if(ans)
+        return "YES";
+    return "NO";
+}
