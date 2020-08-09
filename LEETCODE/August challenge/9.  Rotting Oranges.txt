@@ -1,0 +1,54 @@
+
+class Solution {
+public:
+    int dx[4]={1,0,-1, 0};
+    int dy[4]={0,1, 0,-1};
+    
+    bool isValid(int x,int y,vector<vector<int>> &visited,int n,int m, vector<vector<int>> &grid){
+        if(x<0 || x>=n || y<0 || y>=m || visited[x][y]==1 || grid[x][y]==2 || grid[x][y]==0) return false;
+        return true;
+    }
+    
+    int orangesRotting(vector<vector<int>>& grid) {
+        
+        int n = grid.size();int m = grid[0].size();
+        vector<vector<int>> visited(n,vector<int>(m,0));
+        int total_oranges=0;int fresh_oranges=0;
+        queue<pair<int,int> > q;
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1) {
+                    fresh_oranges++;
+                    total_oranges++;
+                }
+                if(grid[i][j]==2){
+                    total_oranges++;
+                    q.push(make_pair(i,j));
+                }
+            }
+        }
+        if(fresh_oranges==0) {return 0;}
+        int ans =0;int cur_oranges=0;
+        while(!q.empty()){
+            int size = q.size();
+
+            for(int i=0;i<size;i++){
+                pair<int,int> p = q.front();q.pop();cur_oranges++; 
+                if(cur_oranges==total_oranges) return ans;
+                int x = p.first;int y=p.second;
+                // cout<<x<<"      "<<y<<"\n";
+                
+                for(int j=0;j<4;j++){
+                    int new_x=x+dx[j];int new_y=y+dy[j];
+                    if(isValid(new_x, new_y, visited, n, m,grid)){
+                        q.push(make_pair(new_x,new_y));
+                        visited[new_x][new_y]=1;
+                    }
+                }
+            }
+            ans++;
+        }
+        return -1;
+    }
+};
